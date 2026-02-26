@@ -50,6 +50,36 @@ export default function Home() {
             ※ 本サイトは概算計算ツールです。正確な税額は税務署や税理士へご確認ください。
           </p>
         </div>
+
+        <div className="mt-16 border-t pt-12 text-gray-700 leading-relaxed space-y-6">
+          <h2 className="text-2xl font-bold text-gray-800">
+            当サイトについて
+          </h2>
+
+          <p>
+            本サイトは、副業をしている会社員・個人事業主の方向けに、
+            税金の増加額を簡単に把握できる無料のシミュレーションツールを提供しています。
+            難しい税制をできるだけ分かりやすく、直感的に確認できることを目的としています。
+          </p>
+
+          <h3 className="text-xl font-semibold text-gray-800">
+            こんな方におすすめ
+          </h3>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>副業を始めたばかりの会社員の方</li>
+            <li>確定申告前に税額の目安を知りたい方</li>
+            <li>住民税の増加額を事前に把握したい方</li>
+          </ul>
+
+          <h3 className="text-xl font-semibold text-gray-800">
+            免責事項
+          </h3>
+          <p>
+            本シミュレーターは一般的な税率・制度に基づく概算計算を行っています。
+            実際の税額とは異なる場合があります。
+            正確な税額については税務署または税理士などの専門家へご相談ください。
+          </p>
+        </div>
       </div>
     </main>
   )

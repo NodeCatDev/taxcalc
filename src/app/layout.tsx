@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -26,7 +27,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body>{children}</body>
+      <body className="flex flex-col min-h-screen bg-gray-50">
+
+        {/* メインコンテンツ */}
+        <div className="flex-grow">
+          {children}
+        </div>
+
+        {/* フッター */}
+        <footer className="bg-white border-t mt-16">
+          <div className="max-w-5xl mx-auto px-6 py-6 text-sm text-gray-600 flex justify-between items-center">
+            <div>© 2026 NodeCatDev</div>
+            <div className="space-x-6">
+              <Link href="/privacy" className="hover:text-black">
+                プライバシーポリシー
+              </Link>
+              <Link href="/contact" className="hover:text-black">
+                お問い合わせ
+              </Link>
+            </div>
+          </div>
+        </footer>
+
+      </body>
     </html>
   )
 }

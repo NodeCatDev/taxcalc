@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Home() {
@@ -10,7 +12,7 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
             副業の税金、いくら増える？
             <br />
-            3分でわかる税金シミュレーター
+            無料でできる副業税金計算シミュレーター
           </h1>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
@@ -25,6 +27,10 @@ export default function Home() {
           >
             無料でシミュレーションする
           </Link>
+
+          <p className="mt-4 text-sm text-gray-500">
+            登録不要・完全無料でご利用いただけます
+          </p>
         </div>
       </section>
 
@@ -125,6 +131,73 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ================= FAQ ================= */}
+      <section className="py-20 px-6 bg-gray-50 border-t">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-10">
+            よくある質問（FAQ）
+          </h2>
+
+          <Accordion question="副業が20万円以下なら確定申告は不要ですか？"
+            answer="所得税については、副業の所得が年間20万円以下であれば確定申告が不要となる場合があります。ただし、住民税の申告は必要となるケースがあるため注意が必要です。" />
+
+          <Accordion question="副業をすると会社にバレますか？"
+            answer="副業が会社に知られる主な原因は住民税の増加です。確定申告時に普通徴収を選択することで、会社に通知される可能性を下げることができます。" />
+
+          <Accordion question="副業の経費はどこまで認められますか？"
+            answer="副業に直接関連する支出は経費として計上できる可能性があります。例としては通信費、消耗品費、交通費などがあります。" />
+
+          <Accordion question="本業の年収が高いと副業の税率も上がりますか？"
+            answer="副業の所得は本業の給与所得と合算されます。そのため、合計所得が増えることで適用される税率が上がる可能性があります。" />
+
+          <Accordion question="このシミュレーターの計算結果は正確ですか？"
+            answer="本シミュレーターは一般的な税率・制度に基づく概算計算を行っています。実際の税額とは異なる場合があります。" />
+        </div>
+      </section>
+
+      {/* ================= STRUCTURED DATA ================= */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "inLanguage": "ja",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "副業が20万円以下なら確定申告は不要ですか？",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "所得税については、副業の所得が年間20万円以下であれば確定申告が不要となる場合があります。ただし、住民税の申告は必要となるケースがあるため注意が必要です。"
+                }
+              }
+            ]
+          })
+        }}
+      />
     </main>
+  );
+}
+
+function Accordion({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b py-4">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full text-left flex justify-between items-center font-semibold text-gray-800"
+      >
+        {question}
+        <span className="ml-4">{open ? "−" : "+"}</span>
+      </button>
+
+      {open && (
+        <p className="mt-3 text-gray-600 leading-relaxed transition-all duration-300">
+          {answer}
+        </p>
+      )}
+    </div>
   );
 }

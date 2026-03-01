@@ -8,50 +8,63 @@ export type CompanyInput = {
 	employmentRate: number;
 };
 
-/**
- * 給与所得控除（令和以降の一般的区分）
- */
+/* ===============================
+   定数（2026年想定）
+================================= */
+
+const BASIC_DEDUCTION_INCOME_TAX = 480_000;
+const BASIC_DEDUCTION_RESIDENT_TAX = 430_000;
+const DEPENDENT_DEDUCTION = 380_000;
+
+const RESIDENT_TAX_RATE = 0.1;
+const RECONSTRUCTION_RATE = 0.021;
+
+// 均等割（標準値）※自治体差あり
+const RESIDENT_EQUALITY_TAX = 5_000;
+
+/* ===============================
+   給与所得控除（2020年以降）
+================================= */
+
 function getSalaryDeduction(salary: number): number {
-	if (salary <= 1800000) return Math.max(0, salary * 0.4 - 100000);
-	if (salary <= 3600000) return salary * 0.3 + 80000;
-	if (salary <= 6600000) return salary * 0.2 + 440000;
-	if (salary <= 8500000) return salary * 0.1 + 1100000;
-	return 1950000;
+	if (salary <= 1_625_000) return 550_000;
+	if (salary <= 1_800_000) return salary * 0.4 - 100_000;
+	if (salary <= 3_600_000) return salary * 0.3 + 80_000;
+	if (salary <= 6_600_000) return salary * 0.2 + 440_000;
+	if (salary <= 8_500_000) return salary * 0.1 + 1_100_000;
+	return 1_950_000;
 }
 
-/**
- * 累進課税による所得税計算
- */
+/* ===============================
+   所得税（速算控除方式）
+================================= */
+
+const INCOME_TAX_TABLE = [
+	{ limit: 1_950_000, rate: 0.05, deduction: 0 },
+	{ limit: 3_300_000, rate: 0.1, deduction: 97_500 },
+	{ limit: 6_950_000, rate: 0.2, deduction: 427_500 },
+	{ limit: 9_000_000, rate: 0.23, deduction: 636_000 },
+	{ limit: 18_000_000, rate: 0.33, deduction: 1_536_000 },
+	{ limit: 40_000_000, rate: 0.4, deduction: 2_796_000 },
+	{ limit: Infinity, rate: 0.45, deduction: 4_796_000 },
+];
+
 function calculateIncomeTax(taxableIncome: number): number {
-	const brackets = [
-		{ limit: 1950000, rate: 0.05 },
-		{ limit: 3300000, rate: 0.1 },
-		{ limit: 6950000, rate: 0.2 },
-		{ limit: 9000000, rate: 0.23 },
-		{ limit: 18000000, rate: 0.33 },
-		{ limit: 40000000, rate: 0.4 },
-		{ limit: Infinity, rate: 0.45 },
-	];
+	if (taxableIncome <= 0) return 0;
 
-	let tax = 0;
-	let prevLimit = 0;
-
-	for (const bracket of brackets) {
-		const taxable = Math.min(taxableIncome, bracket.limit) - prevLimit;
-		if (taxable > 0) {
-			tax += taxable * bracket.rate;
-			prevLimit = bracket.limit;
-		} else {
-			break;
+	for (const bracket of INCOME_TAX_TABLE) {
+		if (taxableIncome <= bracket.limit) {
+			return Math.floor(taxableIncome * bracket.rate - bracket.deduction);
 		}
 	}
 
-	return tax;
+	return 0;
 }
 
-/**
- * 総税額計算（副業あり／なし共通）
- */
+/* ===============================
+   総税額計算
+================================= */
+
 function calculateTotalTax(
 	salary: number,
 	sideIncome: number,
@@ -61,36 +74,55 @@ function calculateTotalTax(
 	pensionRate: number,
 	employmentRate: number,
 ) {
+	const safeSalary = Math.max(0, salary);
+	const safeSideIncome = Math.max(0, sideIncome);
+	const safeExpenses = Math.max(0, expenses);
+	const safeDependents = Math.max(0, dependents);
+
 	// 給与所得
-	const salaryDeduction = getSalaryDeduction(salary);
-	const salaryIncome = Math.max(0, salary - salaryDeduction);
+	const salaryDeduction = getSalaryDeduction(safeSalary);
+	const salaryIncome = Math.max(0, safeSalary - salaryDeduction);
 
-	// 副業利益（赤字は0扱い：安全仕様）
-	const sideProfit = Math.max(0, sideIncome - expenses);
+	// 副業所得
+	const sideProfit = Math.max(0, safeSideIncome - safeExpenses);
 
-	// 社会保険料（給与ベース概算）
-	const socialInsurance = salary * (healthRate + pensionRate + employmentRate);
+	// 社会保険料（概算）
+	const socialInsurance = safeSalary * (healthRate + pensionRate + employmentRate);
 
-	// 各種控除
-	const basicDeduction = 480000;
-	const dependentDeduction = dependents * 380000;
+	/* ---------- 所得税 ---------- */
 
-	const taxableIncome =
-		salaryIncome + sideProfit - socialInsurance - basicDeduction - dependentDeduction;
+	const taxableIncomeIncomeTax =
+		salaryIncome +
+		sideProfit -
+		socialInsurance -
+		BASIC_DEDUCTION_INCOME_TAX -
+		safeDependents * DEPENDENT_DEDUCTION;
 
-	const safeTaxable = Math.max(0, taxableIncome);
+	const incomeTaxBase = Math.max(0, taxableIncomeIncomeTax);
 
-	// 所得税
-	const incomeTax = calculateIncomeTax(safeTaxable);
+	const incomeTax = calculateIncomeTax(incomeTaxBase);
 
-	// 復興特別所得税（2.1%）
-	const reconstructionTax = incomeTax * 0.021;
+	const reconstructionTax = Math.floor(incomeTax * RECONSTRUCTION_RATE);
 
-	// 住民税（所得割のみ10%）
-	const residentTax = safeTaxable * 0.1;
+	/* ---------- 住民税 ---------- */
+
+	const taxableIncomeResident =
+		salaryIncome +
+		sideProfit -
+		socialInsurance -
+		BASIC_DEDUCTION_RESIDENT_TAX -
+		safeDependents * DEPENDENT_DEDUCTION;
+
+	const residentBase = Math.max(0, taxableIncomeResident);
+
+	const residentTax = Math.floor(residentBase * RESIDENT_TAX_RATE) + RESIDENT_EQUALITY_TAX;
 
 	return incomeTax + reconstructionTax + residentTax;
 }
+
+/* ===============================
+   公開関数
+================================= */
 
 export function calculateCompanyTax(input: CompanyInput) {
 	const baseTax = calculateTotalTax(

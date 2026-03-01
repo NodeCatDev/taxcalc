@@ -14,14 +14,7 @@ export const metadata: Metadata = {
 		siteName: '副業税金シミュレーター',
 		locale: 'ja_JP',
 		type: 'website',
-		images: [
-			{
-				url: 'https://tax-simulator.com/og',
-				width: 1200,
-				height: 630,
-				alt: '副業税金シミュレーター',
-			},
-		],
+		images: ['/og'],
 	},
 	twitter: {
 		card: 'summary_large_image',

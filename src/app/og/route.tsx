@@ -3,17 +3,16 @@ import { ImageResponse } from 'next/og';
 export const runtime = 'edge';
 
 export async function GET() {
-	const year = new Date().getFullYear();
-
 	return new ImageResponse(
 		<div
 			style={{
 				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
 				width: '1200px',
 				height: '630px',
 				background: 'linear-gradient(135deg, #0f172a, #1e293b)',
+				padding: '80px',
+				color: 'white',
+				fontFamily: 'sans-serif',
 			}}
 		>
 			<div
@@ -21,21 +20,51 @@ export async function GET() {
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'center',
-					alignItems: 'center',
-					padding: '60px',
-					color: 'white',
-					fontFamily: 'sans-serif',
 				}}
 			>
-				<div style={{ fontSize: 80, fontWeight: 700, textAlign: 'center', marginBottom: 40 }}>
-					副業税金シミュレーター
+				{/* タイトル */}
+				<div
+					style={{
+						display: 'flex',
+						fontSize: 80,
+						fontWeight: 800,
+						lineHeight: 1.1,
+						letterSpacing: '-2px',
+					}}
+				>
+					<div>副業</div>
+					<div style={{ color: '#38bdf8', marginLeft: 20 }}>税金</div>
+					<div style={{ marginLeft: 20 }}>シミュレーター</div>
 				</div>
 
-				<div style={{ fontSize: 45, opacity: 0.9, textAlign: 'center' }}>
-					副業で増える税金を自動計算
+				{/* サブ */}
+				<div
+					style={{
+						display: 'flex',
+						marginTop: 40,
+						fontSize: 40,
+						color: '#cbd5e1',
+					}}
+				>
+					会社員対応・自動計算
 				</div>
 
-				<div style={{ marginTop: 30, fontSize: 35, opacity: 0.7 }}>{year}年版｜会社員対応</div>
+				{/* CTA風バッジ */}
+				<div
+					style={{
+						display: 'flex',
+						marginTop: 60,
+						fontSize: 28,
+						background: '#38bdf8',
+						color: '#0f172a',
+						padding: '12px 28px',
+						borderRadius: 999,
+						fontWeight: 700,
+						alignSelf: 'flex-start', // ← fit-contentの代わり
+					}}
+				>
+					無料で今すぐチェック
+				</div>
 			</div>
 		</div>,
 		{

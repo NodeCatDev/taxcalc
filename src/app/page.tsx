@@ -1,109 +1,84 @@
 import Link from 'next/link';
-import Script from 'next/script';
 import Accordion from './components/Accordion';
 
 export default function HomePage() {
 	return (
-		<>
-			{/* FAQ構造化データ */}
-			<Script id="faq-structured-data" type="application/ld+json" strategy="afterInteractive">
-				{JSON.stringify({
-					'@context': 'https://schema.org',
-					'@type': 'FAQPage',
-					mainEntity: [
-						{
-							'@type': 'Question',
-							name: '副業はいくらから確定申告が必要ですか？',
-							acceptedAnswer: {
-								'@type': 'Answer',
-								text: '給与所得者の場合、副業所得（収入−経費）が年間20万円を超えると確定申告が必要になります。',
-							},
-						},
-						{
-							'@type': 'Question',
-							name: '住民税で副業は会社にバレますか？',
-							acceptedAnswer: {
-								'@type': 'Answer',
-								text: '確定申告時に住民税の徴収方法を「普通徴収」に選択することで、会社経由の通知を避けられる可能性があります。',
-							},
-						},
-						{
-							'@type': 'Question',
-							name: '副業の税金は何％くらいかかりますか？',
-							acceptedAnswer: {
-								'@type': 'Answer',
-								text: '所得税は5〜45％の累進課税、住民税は原則10％です。実際の負担率は本業年収によって変わります。',
-							},
-						},
-					],
-				})}
-			</Script>
+		<div className="space-y-16">
+			{/* HERO */}
+			<section className="text-center bg-white p-10 rounded-2xl shadow-sm">
+				<h1 className="text-4xl font-bold mb-4">副業税金シミュレーター</h1>
 
-			<div className="max-w-4xl mx-auto px-4 py-10">
-				{/* ヒーロー */}
-				<section className="text-center mb-12">
-					<h1 className="text-3xl md:text-4xl font-bold mb-4">
-						副業税金シミュレーター【2026年版】
-					</h1>
+				<p className="text-gray-600 mb-8">
+					副業で増える<strong>所得税・住民税</strong>を自動計算。
+					<br />
+					本業年収と副業利益を入力するだけ。
+				</p>
 
-					<p className="text-gray-600 mb-6">
-						副業で増える<strong>所得税・住民税</strong>はいくら？
-						<br />
-						会社員向けに、本業年収と副業利益をもとに自動計算できます。
-					</p>
+				<Link
+					href="/calculator"
+					className="inline-block bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition"
+				>
+					無料でシミュレーション
+				</Link>
+			</section>
 
+			{/* COLUMN */}
+			<section className="max-w-6xl mx-auto px-4 py-16">
+				<h2 className="text-2xl font-bold mb-8">副業の税金ガイド</h2>
+
+				<div className="grid md:grid-cols-2 gap-6">
 					<Link
-						href="/calculator"
-						className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition"
+						href="/column/ai-side-job"
+						className="border rounded-xl p-6 hover:shadow-lg transition"
 					>
-						▶ 無料でシミュレーションする
+						<h3 className="font-semibold mb-2">AI副業の経費ガイド</h3>
+						<p className="text-gray-600 text-sm">ChatGPT・MidjourneyなどAIツールの経費計上を解説</p>
 					</Link>
-				</section>
 
-				{/* コラムへのリンク */}
-				<section className="grid md:grid-cols-2 gap-6 mb-12 text-center">
-					<Link
-						href="/column/expense"
-						className="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg shadow hover:bg-purple-700 transition"
-					>
-						▶ 経費計上の詳しい解説
+					<Link href="/column/expense" className="border rounded-xl p-6 hover:shadow-lg transition">
+						<h3 className="font-semibold mb-2">副業で計上できる経費</h3>
+						<p className="text-gray-600 text-sm">副業の経費例と注意点を解説</p>
+					</Link>
+
+					<Link href="/column/faq20" className="border rounded-xl p-6 hover:shadow-lg transition">
+						<h3 className="font-semibold mb-2">会社に副業がバレる原因</h3>
+						<p className="text-gray-600 text-sm">住民税の仕組みと普通徴収</p>
 					</Link>
 
 					<Link
-						href="/column/faq20"
-						className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow hover:bg-indigo-700 transition"
+						href="/column/resident-tax-trap"
+						className="border rounded-xl p-6 hover:shadow-lg transition"
 					>
-						▶ 副業20万円ルール FAQ
+						<h3 className="font-semibold mb-2">20万円以下の罠</h3>
+						<p className="text-gray-600 text-sm">住民税で副業がバレる理由</p>
 					</Link>
-				</section>
+				</div>
+			</section>
 
-				{/* FAQ Accordion */}
-				<section>
-					<h2 className="text-xl font-bold mb-6">よくある質問（FAQ）</h2>
-					<Accordion
-						title="副業はいくらから確定申告が必要ですか？"
-						content="給与所得者の場合、副業所得（収入−経費）が年間20万円を超えると確定申告が必要です。"
-					/>
-					<Accordion
-						title="住民税で副業は会社にバレますか？"
-						content="住民税の徴収方法を普通徴収に選択すれば、会社経由での通知を避けられる可能性があります。"
-					/>
-					<Accordion
-						title="副業の税金はどのくらい増えますか？"
-						content="所得税は累進課税、住民税は約10％です。本業年収が高いほど副業分の税率も高くなります。"
-					/>
-				</section>
+			{/* FAQ */}
+			<section className="bg-white p-10 rounded-2xl shadow-sm">
+				<h2 className="text-2xl font-bold mb-6">よくある質問</h2>
 
-				{/* 免責事項 */}
-				<section className="mt-12 text-sm text-gray-600 leading-relaxed bg-gray-100 p-6 rounded-xl">
-					<h3 className="font-semibold mb-3">免責事項</h3>
-					<p>
-						本サイトのシミュレーションは概算計算を目的としています。
-						実際の税額は控除状況や自治体により異なります。
-						正確な税額については税務署または税理士へご確認ください。
-					</p>
-				</section>
-			</div>
-		</>
+				<Accordion
+					title="副業はいくらから確定申告が必要？"
+					content="給与所得者の場合、副業所得が20万円を超えると確定申告が必要です。"
+				/>
+
+				<Accordion
+					title="住民税で副業はバレる？"
+					content="住民税を普通徴収にすることで会社通知を避けられる場合があります。"
+				/>
+
+				<Accordion title="副業の税率は？" content="所得税は5〜45%、住民税は10%です。" />
+			</section>
+
+			{/* DISCLAIMER */}
+			<section className="text-sm text-gray-600 bg-gray-100 p-8 rounded-xl">
+				<h3 className="font-semibold mb-3">免責事項</h3>
+				<p>
+					本サイトのシミュレーションは概算です。 正確な税額は税務署または税理士へご確認ください。
+				</p>
+			</section>
+		</div>
 	);
 }

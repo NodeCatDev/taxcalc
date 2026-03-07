@@ -1,61 +1,71 @@
 import Link from 'next/link';
 
-export const metadata = {
-	title: '副業経費と節税の基本 | 副業税金シミュレーター',
-	description:
-		'副業の経費計上や節税のポイントをわかりやすく解説。正しく控除して税負担を減らす方法を紹介します。',
-};
-
-export default function Column2Page() {
+export default function ExpenseColumnPage() {
 	return (
-		<main className="min-h-screen bg-gray-50 px-6 py-16">
-			<div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-10">
-				<h1 className="text-3xl font-bold mb-8 border-b pb-4">副業経費と節税の基本</h1>
+		<div className="max-w-4xl mx-auto px-4 py-10">
+			<h1 className="text-3xl md:text-4xl font-bold mb-6">
+				副業で計上できる経費の具体例【どこまでOK？】
+			</h1>
 
-				<section className="mb-6 text-gray-700 leading-relaxed">
-					<p>
-						副業を行うと、収入だけでなく経費の管理も重要になります。
-						経費として認められる支出は所得から差し引くことができるため、正しく計上することで所得税・住民税の負担を軽減できます。
-					</p>
-				</section>
+			<p className="text-gray-700 leading-relaxed mb-4">
+				副業の税金は「収入 − 経費」で計算されます。
+				つまり、経費を正しく計上することで税金を減らすことができます。
+			</p>
 
-				<section className="mb-6">
-					<h2 className="text-xl font-semibold mb-3">経費にできる支出の例</h2>
-					<ul className="list-disc pl-5 space-y-2 text-gray-700">
-						<li>通信費：副業で使用するインターネットや携帯電話の費用</li>
-						<li>PC・周辺機器：業務で必要なパソコンやプリンタなど</li>
-						<li>書籍・教材：業務に必要な書籍やオンライン講座費用</li>
-						<li>消耗品：文房具や事務用品</li>
-						<li>交通費：副業で必要な移動費</li>
-					</ul>
-				</section>
+			<p className="text-gray-700 leading-relaxed mb-8">
+				しかし副業初心者の多くが
+				<strong>「どこまで経費になるのか？」</strong>
+				という点で悩んでいます。 ここでは副業でよく使われる経費を具体例付きで解説します。
+			</p>
 
-				<section className="mb-6">
-					<h2 className="text-xl font-semibold mb-3">経費計上のポイント</h2>
-					<ul className="list-disc pl-5 space-y-2 text-gray-700">
-						<li>副業に関連する支出であることを明確にする</li>
-						<li>領収書や明細を必ず保管する</li>
-						<li>プライベートとの按分が必要な場合は合理的な方法で分ける</li>
-						<li>税務署に問い合わせや相談も検討する</li>
-					</ul>
-				</section>
+			<h2 className="text-2xl font-semibold mb-4">副業で認められる主な経費</h2>
 
-				<section className="mb-6 text-gray-700 leading-relaxed">
-					<p>
-						経費を正しく計上することで、赤字になった場合は翌年以降の損益通算や繰越控除にも活用できます。
-						副業収入の税負担を少しでも軽減したい場合は、日々の支出管理を意識することが大切です。
-					</p>
-				</section>
-
-				<section className="mt-12 text-center">
-					<Link
-						href="/calculator"
-						className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition"
-					>
-						▶ 副業の税額をシミュレーションする
-					</Link>
-				</section>
+			<div className="bg-gray-50 border rounded-xl p-6 mb-8">
+				<ul className="list-disc pl-5 text-gray-700 space-y-2">
+					<li>パソコン・周辺機器</li>
+					<li>通信費（スマホ・ネット回線）</li>
+					<li>書籍・教材費</li>
+					<li>ソフトウェア利用料</li>
+					<li>交通費</li>
+					<li>消耗品</li>
+				</ul>
 			</div>
-		</main>
+
+			<h2 className="text-2xl font-semibold mb-4">按分が必要な経費</h2>
+
+			<p className="text-gray-700 leading-relaxed mb-4">
+				私用と兼用する費用は、
+				<strong>使用割合で分けて計上する必要があります。</strong>
+			</p>
+
+			<div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8">
+				<p className="font-semibold mb-2">例：通信費</p>
+				<p>月8000円のスマホ料金 副業利用30%</p>
+				<p className="font-semibold">→ 2400円が経費</p>
+			</div>
+
+			<h2 className="text-2xl font-semibold mb-4">よくあるNG例</h2>
+
+			<ul className="list-disc pl-5 text-gray-700 mb-8 space-y-2">
+				<li>生活費を経費にする</li>
+				<li>趣味の書籍を経費にする</li>
+				<li>私用スマホを全額経費</li>
+			</ul>
+
+			<div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+				<h2 className="text-xl font-semibold mb-3">副業の税額をシミュレーション</h2>
+
+				<p className="text-gray-700 mb-4">
+					収入と経費を入力すると、 所得税と住民税を自動計算できます。
+				</p>
+
+				<Link
+					href="/calculator"
+					className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+				>
+					▶ 副業税金シミュレーター
+				</Link>
+			</div>
+		</div>
 	);
 }

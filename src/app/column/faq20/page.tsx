@@ -1,127 +1,77 @@
 import Link from 'next/link';
-import Script from 'next/script';
 
-export const metadata = {
-	title: '副業20万円ルールとは？住民税と会社バレの基礎知識',
-	description:
-		'副業20万円ルールの正しい理解と、住民税で会社にバレない方法を解説。副業税金シミュレーターへの導線付き。',
-};
-
-export default function ColumnFAQ20() {
+export default function ResidentTaxColumnPage() {
 	return (
-		<>
-			{/* FAQ構造化データ（このコラムに関連する質問） */}
-			<Script id="faq20-structured-data" type="application/ld+json" strategy="afterInteractive">
-				{JSON.stringify({
-					'@context': 'https://schema.org',
-					'@type': 'FAQPage',
-					mainEntity: [
-						{
-							'@type': 'Question',
-							name: '副業はいくらから確定申告が必要ですか？',
-							acceptedAnswer: {
-								'@type': 'Answer',
-								text: '給与所得者の場合、副業所得が年間20万円を超えると確定申告が必要になります。',
-							},
-						},
-						{
-							'@type': 'Question',
-							name: '住民税で副業は会社にバレますか？',
-							acceptedAnswer: {
-								'@type': 'Answer',
-								text: '住民税の徴収方法を普通徴収にすれば、会社経由での通知を避けられる可能性があります。',
-							},
-						},
-					],
-				})}
-			</Script>
+		<div className="max-w-4xl mx-auto px-4 py-10">
+			<h1 className="text-3xl font-bold mb-6">
+				副業の住民税と普通徴収の選び方【会社にバレない方法】
+			</h1>
 
-			<main className="min-h-screen bg-gray-50 px-6 py-16">
-				<div className="max-w-3xl mx-auto bg-white rounded-2xl shadow p-10 md:p-12">
-					<h1 className="text-3xl md:text-4xl font-bold mb-6">
-						副業20万円ルールとは？住民税と会社バレの基礎知識
-					</h1>
+			<p className="text-gray-700 leading-relaxed mb-4">
+				副業を始めると、所得税だけでなく住民税も増加します。
+				特に会社員の場合、住民税の徴収方法によっては本業の勤務先に副業が知られてしまう可能性があります。
+				ここでは、住民税の仕組みと普通徴収の選び方、注意点を詳しく解説します。
+			</p>
 
-					<p className="text-gray-700 mb-6 leading-relaxed">
-						副業を始めるとよく聞く「20万円までは申告不要」というルール。しかし、住民税の取り扱いや会社への通知を正しく理解していないと、思わぬトラブルにつながることもあります。
-					</p>
+			<h2 className="text-xl font-semibold mb-3">住民税の基本仕組み</h2>
+			<p className="text-gray-700 leading-relaxed mb-4">
+				住民税は前年の所得に応じて課税される地方税で、毎年6月から翌年5月までの間に納付します。
+				給与所得者の場合、通常は「特別徴収」といって、会社が給与から天引きして納付します。
+				そのため、会社に副業収入が反映される可能性があります。
+			</p>
 
-					<h2 className="text-2xl font-semibold mb-4">副業20万円ルールとは？</h2>
-					<p className="text-gray-700 mb-4 leading-relaxed">
-						副業で得た「所得」が年間20万円以下の場合、所得税の確定申告は原則不要です。
-					</p>
-					<p className="text-gray-700 mb-4 leading-relaxed">
-						<strong>ポイント：</strong>
-						収入ではなく「所得」です。売上から経費を引いた額が対象になります。
-					</p>
+			<h2 className="text-xl font-semibold mb-3">普通徴収とは何か？</h2>
+			<p className="text-gray-700 leading-relaxed mb-4">
+				普通徴収は、会社を経由せず自分で住民税を納める方法です。
+				自宅に送付される納付書で、自分で4回に分けて納付することができます。
+				副業収入がある場合、この普通徴収を選ぶことで会社に副業情報が伝わるリスクを減らすことができます。
+			</p>
 
-					<table className="w-full border mb-6 text-sm text-gray-700">
-						<thead>
-							<tr className="bg-gray-100">
-								<th className="border px-2 py-1">売上</th>
-								<th className="border px-2 py-1">経費</th>
-								<th className="border px-2 py-1">所得</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td className="border px-2 py-1">30万円</td>
-								<td className="border px-2 py-1">15万円</td>
-								<td className="border px-2 py-1">15万円</td>
-							</tr>
-						</tbody>
-					</table>
+			<h2 className="text-xl font-semibold mb-3">確定申告での普通徴収選択</h2>
+			<p className="text-gray-700 leading-relaxed mb-4">
+				副業の所得を確定申告する際に、住民税の徴収方法として「普通徴収」を選択できます。
+				申告書の「給与・公的年金以外の所得に係る住民税の徴収方法」の欄で選択するだけです。
+				選択を忘れると自動的に特別徴収となり、会社に副業分の住民税が通知されます。
+			</p>
 
-					<h2 className="text-2xl font-semibold mb-4">住民税は別ルール</h2>
-					<p className="text-gray-700 mb-4 leading-relaxed">
-						住民税には20万円ルールがありません。副業所得が1円でもあれば住民税の申告が必要です。
-					</p>
+			<h2 className="text-xl font-semibold mb-3">普通徴収を選ぶ際の注意点</h2>
+			<ul className="list-disc pl-5 mb-4 text-gray-700 leading-relaxed">
+				<li>納付期日を自分で管理する必要がある（6月、8月、10月、翌年1月が一般的）</li>
+				<li>支払いを怠ると延滞金や督促が発生する</li>
+				<li>市区町村により納付方法や書類が異なる場合があるので確認が必要</li>
+			</ul>
 
-					<h2 className="text-2xl font-semibold mb-4">会社にバレる理由</h2>
-					<p className="text-gray-700 mb-4 leading-relaxed">
-						会社は市区町村から従業員の住民税額の通知を受けます。副業分が加算されると、給与だけでは説明できない住民税額となり、会社に知られる可能性があります。
-					</p>
+			<h2 className="text-xl font-semibold mb-3">副業での住民税シミュレーション例</h2>
+			<p className="text-gray-700 leading-relaxed mb-4">
+				例えば、副業で年間50万円の利益があった場合、住民税はおおむね50万円 × 10％ =
+				5万円程度が追加で課税されます。
+				これを普通徴収で支払うと、自分で納付書に沿って4回に分けて支払うことになります。
+				特別徴収にしてしまうと、会社経由で副業分の住民税が引かれるため、副業が会社に知られる可能性があります。
+			</p>
 
-					<h2 className="text-2xl font-semibold mb-4">会社にバレにくくする方法</h2>
-					<p className="text-gray-700 mb-4 leading-relaxed">
-						確定申告時に<strong>住民税の徴収方法を「自分で納付（普通徴収）」</strong>
-						に設定することで、副業分の住民税を自分で支払うことができます。
-					</p>
+			<h2 className="text-xl font-semibold mb-3">よくある誤解と注意点</h2>
+			<ul className="list-disc pl-5 mb-4 text-gray-700 leading-relaxed">
+				<li>普通徴収にしても所得税は別途確定申告で納付が必要</li>
+				<li>住民税は前年所得に基づくため、今年副業を始めても翌年の税額に反映される</li>
+				<li>給与天引きでないため、自分で納付期限を管理しないと延滞になる</li>
+			</ul>
 
-					<h2 className="text-2xl font-semibold mb-4">副業で確定申告が必要になるケース</h2>
-					<ul className="list-disc pl-5 text-gray-700 mb-6">
-						<li>副業所得が20万円超</li>
-						<li>医療費控除やふるさと納税の申告予定がある場合</li>
-						<li>一度でも確定申告するなら、副業分も含める</li>
-					</ul>
+			<p className="text-gray-700 leading-relaxed mb-4">
+				会社に副業がバレるのを防ぐために普通徴収を選ぶことは有効ですが、税金の支払いを自分で管理する責任も伴います。
+				納付書の紛失や期限超過に注意し、必要であれば市区町村の窓口で確認することをおすすめします。
+			</p>
 
-					<h2 className="text-2xl font-semibold mb-4">税額の目安</h2>
-					<p className="text-gray-700 mb-4 leading-relaxed">
-						副業の税金は所得税（累進課税）・住民税（約10％）・場合によっては国民健康保険料が増加します。金額の目安は
-						<Link href="/calculator" className="text-blue-600 underline">
-							副業税金シミュレーター
-						</Link>
-						で簡単に確認できます。
-					</p>
+			<p className="text-gray-700 leading-relaxed mb-6">
+				当シミュレーターでは、副業収入を入力すると、所得税・住民税（普通徴収換算）の概算額を自動計算できます。
+				これにより、副業開始前に税負担を把握し、計画的に資金管理が可能です。
+			</p>
 
-					<h2 className="text-2xl font-semibold mb-4">まとめ</h2>
-					<ul className="list-disc pl-5 text-gray-700">
-						<li>20万円ルールは「所得税のみ」</li>
-						<li>住民税は別途申告が必要</li>
-						<li>会社バレ対策は普通徴収に設定</li>
-						<li>迷ったらシミュレーションで確認</li>
-					</ul>
-
-					<section className="text-center mt-8">
-						<Link
-							href="/calculator"
-							className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition"
-						>
-							▶ 今すぐ副業税金を計算する
-						</Link>
-					</section>
-				</div>
-			</main>
-		</>
+			<Link
+				href="/calculator"
+				className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition mt-6"
+			>
+				▶ 副業の税額を計算してみる
+			</Link>
+		</div>
 	);
 }
